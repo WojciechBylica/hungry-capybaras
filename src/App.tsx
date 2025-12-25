@@ -1,14 +1,19 @@
-import { useState } from 'react'
-import './App.css'
 import { Box, Typography } from '@mui/material'
+import capibara from './assets/capibara-img.png'
 
 function App() {
 
   return (
-    <Box>
-      <Typography variant='h1'>Kapibry - głodomory</Typography>
-      <Typography>Rozwiąż zadania i nakarm głodną kapibarę</Typography>
-    </Box>
+    <>
+     <Box component='header'>
+         <Typography variant='h1'>Kapibary-głodomory</Typography>
+        <Typography>Rozwiąż zadania i nakarm głodną kapibarę</Typography>
+        <Box component='img' src={capibara}  sx={{width:160, height: 'auto'}}/>
+     </Box>
+     <Box component='section' flexGrow='1'>
+
+     </Box>
+    </>
   )
 }
 
