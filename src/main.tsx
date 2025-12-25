@@ -5,12 +5,12 @@ import { AppThemeProvider } from './theme'
 import { Box, CssBaseline } from '@mui/material'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  // <StrictMode>
     <AppThemeProvider>
       <CssBaseline />
       <Box component='main'>
         <App />
       </Box>
     </AppThemeProvider>
-  </StrictMode>,
+  // </StrictMode>,
 )

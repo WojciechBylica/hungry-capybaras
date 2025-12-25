@@ -16,7 +16,7 @@ const theme = createTheme({
         MuiCssBaseline: {
             styleOverrides: {
                 main: {
-                    height: '100vh',
+                    Height: '100vh',
                     padding: '16px',
                     backgroundColor: '#fff',
                     display: 'flex',
