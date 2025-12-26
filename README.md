@@ -1,3 +1,8 @@
+# Kapibary-głodomory
+a funny game written for my daughter in purpose to develop her basic skills with work on computer keyboard
+
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
