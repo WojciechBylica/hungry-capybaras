@@ -1,22 +1,35 @@
-import type { FieldType, FillType } from "./types"
+import type { FieldType, FillType } from './types'
 import capibara from './assets/capibara-img.png'
 import grass from './assets/grass.png'
 
-export const getSize = (count:number) => count > 0 ?`${30 * (1 + count/10)}px` : '30px'
+export const initialTimeLeft = 5
 
-export const getFill = (count:number, fill: FillType)=>{
-  switch (fill) {
-    case 'capibara':
-      return <img src={capibara} height={getSize(count)} width='auto'/>
-    case 'grass':
-      return <img src={grass} height='30px' width='auto'/>
-    default:
-      return null
-  }
+export const getSize = (count: number) =>
+    count > 0 ? `${30 * (1 + count / 10)}px` : '30px'
+
+export const getFill = (count: number, fill: FillType) => {
+    switch (fill) {
+        case 'capibara':
+            return (
+                <img
+                    src={capibara}
+                    height={getSize(count)}
+                    width="auto"
+                    alt=""
+                />
+            )
+        case 'grass':
+            return <img src={grass} height="30px" width="auto" alt="" />
+        default:
+            return null
+    }
 }
 
-export const getInitialState =(maxWidth:number, capibaraIndex: number,grassIndex: number)=>{
-
+export const getInitialState = (
+    maxWidth: number,
+    capibaraIndex: number,
+    grassIndex: number
+) => {
     const maxIndex = maxWidth * maxWidth
 
     const array: FieldType[] = []
@@ -27,19 +40,23 @@ export const getInitialState =(maxWidth:number, capibaraIndex: number,grassIndex
             id: step,
             x,
             y,
-            fill: capibaraIndex === step ? 'capibara': grassIndex === step ? 'grass': null
+            fill:
+                capibaraIndex === step
+                    ? 'capibara'
+                    : grassIndex === step
+                    ? 'grass'
+                    : null,
         })
         x++
-        if(x > maxWidth) {
+        if (x > maxWidth) {
             y++
-            x=1
+            x = 1
         }
-
     }
     return array
 }
 
-export const getRandomIndex = (maxWidth:number)=>{
-    const max = maxWidth * maxWidth;
-    return Math.floor(Math.random() * max) + 1;
+export const getRandomIndex = (maxWidth: number) => {
+    const max = maxWidth * maxWidth
+    return Math.floor(Math.random() * max) + 1
 }
