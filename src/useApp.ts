@@ -1,43 +1,19 @@
 import { useEffect, useState } from "react"
-export type FillType = 'capibara' | 'grass'| null
-export type FieldType = {
-    id: number,
-    x: number,
-    y:number,
-    fill: FillType
-}
+import type { FieldType } from "./types"
+import { getInitialState, getRandomIndex } from "./utils"
 
-const getInitialState =(maxWidth:number, capibaraIndex: number)=>{
-
-    const maxIndex = maxWidth * maxWidth
-
-    const array: FieldType[] = []
-    let x = 1
-    let y = 1
-    for (let step = 1; step <= maxIndex; step++) {
-        array.push({
-            id: step,
-            x,
-            y,
-            fill: capibaraIndex === step ? 'capibara': null
-        })
-        x++
-        if(x > maxWidth) {
-            y++
-            x=1
-        }
-
-    }
-    return array
-}
 export const useApp = () =>{
-const maxWidth = 25
+    const maxWidth = 25
+    const initialCapibaraIdPosition = 20
+    const initialGrassPosition = getRandomIndex(maxWidth)
+    const initialValues = getInitialState(maxWidth, initialCapibaraIdPosition,initialGrassPosition)
+    const [fields, setFields]= useState(initialValues)
+    const [count,setCount]=useState(0)
 
-
-    const [fields, setFields]= useState(getInitialState(maxWidth, 20))
-
-
-    console.log('fields',fields)
+    const handleReset = ()=> {
+        setFields(initialValues)
+        setCount(0)
+    }
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -54,36 +30,54 @@ const maxWidth = 25
                 let nextX = capibaraPos.x;
                 let nextY = capibaraPos.y;
 
-        switch (event.key) {
-          case 'ArrowUp':
-            nextY = nextY > 1 ? nextY - 1 : maxWidth
-            break;
-          case 'ArrowDown':
-            nextY = nextY < maxWidth ? nextY + 1 : 1
-            break;
-          case 'ArrowLeft':
-            nextX = nextX > 1 ? nextX - 1 : maxWidth
-            break;
-          case 'ArrowRight':
-            nextX = nextX < maxWidth ? nextX + 1 : 1
-            break;
-        }
+            switch (event.key) {
+            case 'ArrowUp':
+                nextY = nextY > 1 ? nextY - 1 : maxWidth
+                break;
+            case 'ArrowDown':
+                nextY = nextY < maxWidth ? nextY + 1 : 1
+                break;
+            case 'ArrowLeft':
+                nextX = nextX > 1 ? nextX - 1 : maxWidth
+                break;
+            case 'ArrowRight':
+                nextX = nextX < maxWidth ? nextX + 1 : 1
+                break;
+            }
 
-        const capibaraNextField = prevFields.find(f => f.x === nextX && f.y === nextY) as FieldType;
+            const capibaraNextField = prevFields.find(f => f.x === nextX && f.y === nextY) as FieldType;
+            const capibaraNextFieldSettled = { ...capibaraNextField, fill: 'capibara' } as FieldType;
 
-                const capibaraNextFieldSettled = { ...capibaraNextField, fill: 'capibara' } as FieldType;
+            const restOfFields = prevFields.filter(
+                ({ id }) => id !== previousCapibaraField.id && id !== capibaraNextField.id
+            );
 
-                const restOfFields = prevFields.filter(
-                    ({ id }) => id !== previousCapibaraField.id && id !== capibaraNextField.id
-                );
 
-                return [previousCapibaraField, capibaraNextFieldSettled, ...restOfFields].sort((a, b) => a.id - b.id);
+            const newFields = [previousCapibaraField, capibaraNextFieldSettled, ...restOfFields].sort((a, b) => a.id - b.id);
+
+
+            if(capibaraNextFieldSettled.id === prevFields.find(({fill})=>fill==='grass')?.id) {
+                setCount(c=>c + 1)
+
+                const availableIds = restOfFields.map(({id}) => id);
+                const randomId =
+                availableIds[Math.floor(Math.random() * availableIds.length)];
+                const newFieldToGrass = restOfFields.find(({id})=> id===randomId)
+                const newGrassedField = {...newFieldToGrass, fill:'grass'}
+                const restOfFieldsAfterGrassing = restOfFields.filter(({id})=>id!==newGrassedField.id)
+                const newFields = [previousCapibaraField, capibaraNextFieldSettled,newGrassedField, ...restOfFieldsAfterGrassing].sort((a, b) => a.id - b.id);
+
+                return newFields
+
+            }
+
+            return newFields
             });
         };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    }, [fields]);
 
-    return {fields,maxWidth}
+    return {fields,maxWidth, count, handleReset}
 }
