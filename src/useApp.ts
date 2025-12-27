@@ -41,7 +41,7 @@ export const useApp = () => {
             if (!directionKeys.includes(event.key) || stage === 0) return
 
             if (timeLeft === 0 && stage !== 0) {
-                const nextLevel = playMore(count, stage, setStage, event)
+                const nextLevel = playMore(count, stage)
                 if (nextLevel) {
                     alert(`Brawo! Gramy dalej:)`)
                     setStage((s) => s + 1)
