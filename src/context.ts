@@ -4,6 +4,7 @@ import {
     createContext,
     useContext,
 } from 'react'
+import type { LevelType } from './types'
 
 interface GameContextType {
     count: number
@@ -12,6 +13,8 @@ interface GameContextType {
     handleReset: () => void
     resetKey: number
     initialTimeLeft: number
+    level: LevelType
+    setLevel: Dispatch<SetStateAction<LevelType>>
 }
 
 export const GameContext = createContext<GameContextType | null>(null)
@@ -22,7 +25,6 @@ export const useGameContext = () => {
         throw new Error(
             'Oh no! The component should be wrapped with ctx provider!'
         )
-        return
     }
     return ctx
 }

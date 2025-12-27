@@ -6,3 +6,5 @@ export type FieldType = {
     y: number
     fill: FillType
 }
+
+export type LevelType = 'easy' | 'medium' | 'hard'

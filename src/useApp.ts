@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import type { FieldType } from './types'
+import type { FieldType, LevelType } from './types'
 import { getInitialState, getRandomIndex, getTimeLeft, playMore } from './utils'
 
 export const useApp = () => {
@@ -15,7 +15,8 @@ export const useApp = () => {
     const [fields, setFields] = useState(initialValues)
     const [count, setCount] = useState(0)
     const [stage, setStage] = useState(1)
-    const initialTimeLeft = getTimeLeft(stage)
+    const [level, setLevel] = useState<LevelType>('easy')
+    const initialTimeLeft = getTimeLeft(stage, level)
     const [timeLeft, setTimeLeft] = useState(initialTimeLeft)
     const [resetKey, setResetKey] = useState(0)
 
@@ -23,7 +24,7 @@ export const useApp = () => {
         setFields(initialValues)
         setCount(0)
         setStage(1)
-        setTimeLeft(getTimeLeft(1))
+        setTimeLeft(getTimeLeft(1, level))
         setResetKey((k) => k + 1)
     }
 
@@ -146,5 +147,7 @@ export const useApp = () => {
         setTimeLeft,
         resetKey,
         initialTimeLeft,
+        level,
+        setLevel,
     }
 }

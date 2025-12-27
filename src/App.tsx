@@ -2,32 +2,14 @@ import { Box, Button, Typography } from '@mui/material'
 import capibara from './assets/capibara-img.png'
 import { useApp } from './useApp'
 import { getFill } from './utils'
-import { CurrentResult, Timer } from './components'
+import { CurrentResult, LevelButtons, Timer } from './components'
 import { GameContext } from './context'
 
 function App() {
-    const {
-        fields,
-        maxWidth,
-        count,
-        handleReset,
-        timeLeft,
-        setTimeLeft,
-        resetKey,
-        initialTimeLeft,
-    } = useApp()
+    const { fields, maxWidth, handleReset, count, ...rest } = useApp()
 
     return (
-        <GameContext.Provider
-            value={{
-                count,
-                timeLeft,
-                setTimeLeft,
-                handleReset,
-                resetKey,
-                initialTimeLeft,
-            }}
-        >
+        <GameContext.Provider value={{ handleReset, count, ...rest }}>
             <Box component="header" sx={{ display: 'flex' }}>
                 <Box>
                     <Typography variant="h1">Kapibary-głodomory </Typography>
@@ -45,7 +27,10 @@ function App() {
                 />
 
                 <CurrentResult />
-                <Timer />
+                <Box sx={{ display: 'flex', height: 'fit-content' }}>
+                    <Timer />
+                    <LevelButtons />
+                </Box>
             </Box>
 
             <Box
