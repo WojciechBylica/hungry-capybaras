@@ -112,10 +112,10 @@ export const useApp = () => {
                     const newGrassedField = {
                         ...newFieldToGrass,
                         fill: 'grass',
-                    }
+                    } as FieldType
                     const restOfFieldsAfterGrassing = restOfFields.filter(
                         ({ id }) => id !== newGrassedField.id
-                    )
+                    ) as FieldType[]
                     const newFields = [
                         previousCapibaraField,
                         capibaraNextFieldSettled,
