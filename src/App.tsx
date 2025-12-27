@@ -70,6 +70,7 @@ function App() {
                     sx={{
                         border: '1px solid gray',
                         width: 'fit-content',
+                        height: 'fit-content',
                         backgroundColor: '#020024',
                         backgroundImage:
                             'linear-gradient(90deg, rgba(2, 0, 36, 0.39) 0%, rgba(223, 223, 230, 1) 35%, rgba(171, 204, 183, 1) 100%)',
