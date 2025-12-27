@@ -40,20 +40,20 @@ export const useApp = () => {
             }
             if (!directionKeys.includes(event.key) || stage === 0) return
 
-            if (timeLeft === 0 && stage !== 0) {
-                const nextLevel = playMore(count, stage)
-                if (nextLevel) {
-                    alert(`Brawo! Gramy dalej:)`)
-                    setStage((s) => s + 1)
-                    setTimeLeft(getTimeLeft(stage + 1))
-                    setResetKey((k) => k + 1)
-                } else {
-                    setStage(0)
-                    alert(`Kapibara zjadła${count}:)`)
-                    event.preventDefault()
-                    return
-                }
-            }
+            // if (timeLeft === 0 && stage !== 0) {
+            //     const nextLevel = playMore(count, stage)
+            //     if (nextLevel) {
+            //         alert(`Brawo! Gramy dalej:)`)
+            //         setStage((s) => s + 1)
+            //         setTimeLeft(getTimeLeft(stage + 1))
+            //         setResetKey((k) => k + 1)
+            //     } else {
+            //         setStage(0)
+            //         alert(`Kapibara zjadła${count}:)`)
+            //         event.preventDefault()
+            //         return
+            //     }
+            // }
 
             setFields((prevFields) => {
                 const capibaraPos = prevFields.find(
@@ -132,6 +132,19 @@ export const useApp = () => {
 
                 return newFields
             })
+        }
+        if (timeLeft === 0 && stage !== 0) {
+            const nextLevel = playMore(count, stage)
+            if (nextLevel) {
+                alert(`Brawo! Gramy dalej:)`)
+                setStage((s) => s + 1)
+                setTimeLeft(getTimeLeft(stage + 1))
+                setResetKey((k) => k + 1)
+            } else {
+                setStage(0)
+                alert(`Kapibara zjadła ${count}:)`)
+                return
+            }
         }
 
         window.addEventListener('keydown', handleKeyDown)
