@@ -1,6 +1,14 @@
-import type { FieldType, FillType, LevelType } from './types'
+import type { FieldType, FillType, HandType, LevelType } from './types'
 import capibara from './assets/capibara-img.png'
 import grass from './assets/grass.png'
+import { Box } from '@mui/material'
+
+export const boxSize = 28
+
+export const getDirectionKeys = (hand: HandType) =>
+    hand === 'right'
+        ? ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
+        : ['w', 's', 'a', 'd']
 
 export const getLevelMultiplier = (level: LevelType) => {
     switch (level) {
@@ -26,6 +34,9 @@ export const getLevelLabel = (level: LevelType) => {
             return 'łatwy'
     }
 }
+
+export const getHandLabel = (hand: HandType) =>
+    hand === 'right' ? 'prawa' : 'lewa'
 
 export const getTimeLeft = (stage: number, level: LevelType) => {
     switch (stage) {
@@ -74,7 +85,7 @@ export const playMore = (count: number, stage: number) => {
 }
 
 export const getSize = (count: number) =>
-    count > 0 ? `${30 * (1 + count / 10)}px` : '30px'
+    count > 0 ? `${boxSize * (1 + count / 10)}px` : `${boxSize}px`
 
 export const getFill = (count: number, fill: FillType) => {
     switch (fill) {
@@ -88,7 +99,15 @@ export const getFill = (count: number, fill: FillType) => {
                 />
             )
         case 'grass':
-            return <img src={grass} height="30px" width="auto" alt="" />
+            return (
+                <Box
+                    component="img"
+                    src={grass}
+                    height={`${boxSize}px`}
+                    width={`${boxSize}px`}
+                    alt=""
+                />
+            )
         default:
             return null
     }

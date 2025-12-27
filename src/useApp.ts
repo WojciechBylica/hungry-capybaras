@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react'
-import type { FieldType, LevelType } from './types'
-import { getInitialState, getRandomIndex, getTimeLeft, playMore } from './utils'
+import type { FieldType, HandType, LevelType } from './types'
+import {
+    getDirectionKeys,
+    getInitialState,
+    getRandomIndex,
+    getTimeLeft,
+    playMore,
+} from './utils'
 import { useDialog } from './components'
 
 export const useApp = () => {
@@ -22,6 +28,7 @@ export const useApp = () => {
     const [timeLeft, setTimeLeft] = useState(initialTimeLeft)
     const [resetKey, setResetKey] = useState(0)
     const { handleClickOpenDialog, handleCloseDialog, dialogData } = useDialog()
+    const [hand, setHand] = useState<HandType>('right')
 
     const handleReset = () => {
         setFields(initialValues)
@@ -33,12 +40,7 @@ export const useApp = () => {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            const directionKeys = [
-                'ArrowUp',
-                'ArrowDown',
-                'ArrowLeft',
-                'ArrowRight',
-            ]
+            const directionKeys = getDirectionKeys(hand)
             if (directionKeys.includes(event.key)) {
                 event.preventDefault()
             }
@@ -59,16 +61,16 @@ export const useApp = () => {
                 let nextY = capibaraPos.y
 
                 switch (event.key) {
-                    case 'ArrowUp':
+                    case directionKeys[0]:
                         nextY = nextY > 1 ? nextY - 1 : maxWidth
                         break
-                    case 'ArrowDown':
+                    case directionKeys[1]:
                         nextY = nextY < maxWidth ? nextY + 1 : 1
                         break
-                    case 'ArrowLeft':
+                    case directionKeys[2]:
                         nextX = nextX > 1 ? nextX - 1 : maxWidth
                         break
-                    case 'ArrowRight':
+                    case directionKeys[3]:
                         nextX = nextX < maxWidth ? nextX + 1 : 1
                         break
                 }
@@ -143,7 +145,7 @@ export const useApp = () => {
 
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
-    }, [fields, resetKey, timeLeft, stage])
+    }, [fields, resetKey, timeLeft, stage, hand])
 
     return {
         fields,
@@ -160,5 +162,7 @@ export const useApp = () => {
         handleClickOpenDialog,
         handleCloseDialog,
         dialogData,
+        hand,
+        setHand,
     }
 }
