@@ -11,6 +11,7 @@ interface GameContextType {
     setTimeLeft: Dispatch<SetStateAction<number>>
     handleReset: () => void
     resetKey: number
+    initialTimeLeft: number
 }
 
 export const GameContext = createContext<GameContextType | null>(null)

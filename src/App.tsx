@@ -14,11 +14,19 @@ function App() {
         timeLeft,
         setTimeLeft,
         resetKey,
+        initialTimeLeft,
     } = useApp()
 
     return (
         <GameContext.Provider
-            value={{ count, timeLeft, setTimeLeft, handleReset, resetKey }}
+            value={{
+                count,
+                timeLeft,
+                setTimeLeft,
+                handleReset,
+                resetKey,
+                initialTimeLeft,
+            }}
         >
             <Box component="header" sx={{ display: 'flex' }}>
                 <Box>

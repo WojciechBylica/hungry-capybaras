@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 
 import { Box } from '@mui/material'
 import { useGameContext } from '../../context'
-import { initialTimeLeft } from '../../utils'
 
 export const Timer = () => {
-    const { resetKey, setTimeLeft, timeLeft } = useGameContext()
+    const { resetKey, setTimeLeft, timeLeft, initialTimeLeft } =
+        useGameContext()
 
     const startTimeRef = useRef<number>(0)
     const rafRef = useRef<number>()

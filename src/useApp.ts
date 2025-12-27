@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import type { FieldType } from './types'
-import { getInitialState, getRandomIndex, initialTimeLeft } from './utils'
+import { getInitialState, getRandomIndex, getTimeLeft, playMore } from './utils'
 
 export const useApp = () => {
     const maxWidth = 25
-    const initialCapibaraIdPosition = 20
+    const initialCapibaraIdPosition = getRandomIndex(maxWidth)
     const initialGrassPosition = getRandomIndex(maxWidth)
 
     const initialValues = getInitialState(
@@ -14,13 +14,16 @@ export const useApp = () => {
     )
     const [fields, setFields] = useState(initialValues)
     const [count, setCount] = useState(0)
+    const [stage, setStage] = useState(1)
+    const initialTimeLeft = getTimeLeft(stage)
     const [timeLeft, setTimeLeft] = useState(initialTimeLeft)
     const [resetKey, setResetKey] = useState(0)
 
     const handleReset = () => {
         setFields(initialValues)
         setCount(0)
-        setTimeLeft(initialTimeLeft)
+        setStage(1)
+        setTimeLeft(getTimeLeft(1))
         setResetKey((k) => k + 1)
     }
 
@@ -35,7 +38,22 @@ export const useApp = () => {
             if (directionKeys.includes(event.key)) {
                 event.preventDefault()
             }
-            if (!directionKeys.includes(event.key) || timeLeft === 0) return
+            if (!directionKeys.includes(event.key) || stage === 0) return
+
+            if (timeLeft === 0 && stage !== 0) {
+                const nextLevel = playMore(count, stage, setStage, event)
+                if (nextLevel) {
+                    alert(`Brawo! Gramy dalej:)`)
+                    setStage((s) => s + 1)
+                    setTimeLeft(getTimeLeft(stage + 1))
+                    setResetKey((k) => k + 1)
+                } else {
+                    setStage(0)
+                    alert(`Kapibara zjadła${count}:)`)
+                    event.preventDefault()
+                    return
+                }
+            }
 
             setFields((prevFields) => {
                 const capibaraPos = prevFields.find(
@@ -118,7 +136,7 @@ export const useApp = () => {
 
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
-    }, [fields, resetKey])
+    }, [fields, resetKey, timeLeft, stage])
 
     return {
         fields,
@@ -129,5 +147,6 @@ export const useApp = () => {
         timeLeft,
         setTimeLeft,
         resetKey,
+        initialTimeLeft,
     }
 }
