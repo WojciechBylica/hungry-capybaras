@@ -8,13 +8,14 @@ export const CurrentResult = () => {
         <Typography
             sx={{
                 position: 'relative',
-                border: '1px solid #333',
+                border: '1px solid #d3cece',
                 borderRadius: '12px',
                 p: '8px',
                 ml: '8px',
                 height: 'fit-content',
                 '::before': {
                     content: '"▶"',
+                    color: '#d3cece',
                     position: 'absolute',
                     left: '-12px',
                     rotate: '180deg',

@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
-import { Box } from '@mui/material'
+import { Typography } from '@mui/material'
 import { useGameContext } from '../../context'
 
 export const Timer = () => {
@@ -31,21 +31,5 @@ export const Timer = () => {
         }
     }, [resetKey])
 
-    return (
-        <Box
-            sx={{
-                m: '0 8px 8px 8px',
-                p: '8px',
-                border: '1px solid #333',
-                borderRadius: '12px',
-                width: '150px',
-                height: 'fit-content',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItmes: 'center',
-            }}
-        >
-            Pozostało: {timeLeft}s
-        </Box>
-    )
+    return <Typography mb={2}>Pozostało: {timeLeft}s</Typography>
 }

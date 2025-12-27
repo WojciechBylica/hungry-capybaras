@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Paper, Typography } from '@mui/material'
 import capibara from './assets/capibara-img.png'
 import { useApp } from './useApp'
 import { boxSize, getFill } from './utils'
@@ -38,17 +38,17 @@ function App() {
 
                 <CurrentResult />
                 <Box sx={{ display: 'flex', height: 'fit-content' }}>
-                    <Timer />
-                    <Box
+                    <Paper
+                        elevation={1}
                         sx={{
                             p: '8px',
                             borderRadius: '12px',
-                            border: '1px solid #333',
                             position: 'absolute',
                             top: 0,
                             right: 0,
                         }}
                     >
+                        <Timer />
                         <Typography variant="h2" sx={{ fontSize: '14px' }}>
                             Poziom:
                         </Typography>
@@ -60,15 +60,15 @@ function App() {
                             Ręka:
                         </Typography>
                         <HandButtons />
-                    </Box>
+                    </Paper>
                 </Box>
             </Box>
 
             <Box sx={{ flexGrow: '1', display: 'flex' }}>
-                <Box
+                <Paper
+                    elevation={1}
                     component="section"
                     sx={{
-                        border: '1px solid gray',
                         width: 'fit-content',
                         height: 'fit-content',
                         backgroundColor: '#020024',
@@ -97,7 +97,7 @@ function App() {
                             </Box>
                         ))}
                     </Box>
-                </Box>
+                </Paper>
             </Box>
         </GameContext.Provider>
     )
