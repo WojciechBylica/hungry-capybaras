@@ -4,7 +4,7 @@ import {
     createContext,
     useContext,
 } from 'react'
-import type { LevelType } from './types'
+import type { DialogDataType, LevelType } from './types'
 
 interface GameContextType {
     count: number
@@ -15,6 +15,9 @@ interface GameContextType {
     initialTimeLeft: number
     level: LevelType
     setLevel: Dispatch<SetStateAction<LevelType>>
+    dialogData: DialogDataType
+    handleClickOpenDialog: (message: string) => void
+    handleCloseDialog: () => void
 }
 
 export const GameContext = createContext<GameContextType | null>(null)

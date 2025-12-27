@@ -8,3 +8,5 @@ export type FieldType = {
 }
 
 export type LevelType = 'easy' | 'medium' | 'hard'
+
+export type DialogDataType = { open: boolean; message: string }

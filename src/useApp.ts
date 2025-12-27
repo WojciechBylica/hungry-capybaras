@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { FieldType, LevelType } from './types'
 import { getInitialState, getRandomIndex, getTimeLeft, playMore } from './utils'
+import { useDialog } from './components'
 
 export const useApp = () => {
     const maxWidth = 25
@@ -12,6 +13,7 @@ export const useApp = () => {
         initialCapibaraIdPosition,
         initialGrassPosition
     )
+
     const [fields, setFields] = useState(initialValues)
     const [count, setCount] = useState(0)
     const [stage, setStage] = useState(1)
@@ -19,6 +21,7 @@ export const useApp = () => {
     const initialTimeLeft = getTimeLeft(stage, level)
     const [timeLeft, setTimeLeft] = useState(initialTimeLeft)
     const [resetKey, setResetKey] = useState(0)
+    const { handleClickOpenDialog, handleCloseDialog, dialogData } = useDialog()
 
     const handleReset = () => {
         setFields(initialValues)
@@ -39,7 +42,12 @@ export const useApp = () => {
             if (directionKeys.includes(event.key)) {
                 event.preventDefault()
             }
-            if (!directionKeys.includes(event.key) || stage === 0) return
+            if (
+                !directionKeys.includes(event.key) ||
+                stage === 0 ||
+                dialogData.open
+            )
+                return
 
             setFields((prevFields) => {
                 const capibaraPos = prevFields.find(
@@ -122,13 +130,13 @@ export const useApp = () => {
         if (timeLeft === 0 && stage !== 0) {
             const nextLevel = playMore(count, stage)
             if (nextLevel) {
-                alert(`Brawo! Gramy dalej:)`)
+                handleClickOpenDialog(`Brawo! Gramy dalej:)`)
                 setStage((s) => s + 1)
-                setTimeLeft(getTimeLeft(stage + 1))
+                setTimeLeft(getTimeLeft(stage + 1, level))
                 setResetKey((k) => k + 1)
             } else {
                 setStage(0)
-                alert(`Kapibara zjadła ${count}:)`)
+                handleClickOpenDialog(`Kapibara zjadła ${count}:)`)
                 return
             }
         }
@@ -149,5 +157,8 @@ export const useApp = () => {
         initialTimeLeft,
         level,
         setLevel,
+        handleClickOpenDialog,
+        handleCloseDialog,
+        dialogData,
     }
 }
