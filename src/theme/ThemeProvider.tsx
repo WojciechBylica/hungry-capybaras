@@ -22,7 +22,7 @@ const theme = createTheme({
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    width: '1000px',
+                    width: '900px',
                     margin: '0 auto',
                 },
             },

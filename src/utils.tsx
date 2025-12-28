@@ -3,7 +3,7 @@ import capibara from './assets/capibara-img.png'
 import grass from './assets/grass.png'
 import { Box } from '@mui/material'
 
-export const boxSize = 28
+export const boxSize = 22
 
 export const getDirectionKeys = (hand: HandType) =>
     hand === 'right'

@@ -79,7 +79,7 @@ function App() {
                     <Box
                         sx={{
                             display: 'grid',
-                            gridTemplateColumns: `repeat(${maxWidth}, minmax(28px, 28px))`,
+                            gridTemplateColumns: `repeat(${maxWidth}, minmax(${boxSize}px, ${boxSize}px))`,
                         }}
                     >
                         {fields.map(({ id, fill }) => (

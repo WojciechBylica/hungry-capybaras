@@ -1,7 +1,14 @@
-# Kapibary-głodomory
-a funny game written for my daughter in purpose to develop her basic skills with work on computer keyboard
+# Kapibary-głodomory / Hungry capybaras
+A funny game written for my daughter in purpose to develop her basic skills with working on the computer keyboard
 
+## DEMO
+https://wojciechbylica.github.io/hungry-capybaras/
 
+### Technologies
+- Typescript
+- React
+- Vite
+- Mui
 
 # React + TypeScript + Vite
 
