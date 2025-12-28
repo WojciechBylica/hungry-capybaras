@@ -1,29 +1,39 @@
-import { Typography } from '@mui/material'
+import { Typography, Box } from '@mui/material'
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft'
 import { useGameContext } from '../../context'
 
 export const CurrentResult = () => {
     const { count } = useGameContext()
 
     return (
-        <Typography
+        <Box
+            component="section"
             sx={{
                 position: 'relative',
-                border: '1px solid #d3cece',
-                borderRadius: '12px',
-                p: '8px',
-                ml: '8px',
-                height: 'fit-content',
-                '::before': {
-                    content: '"▶"',
-                    color: '#d3cece',
-                    position: 'absolute',
-                    left: '-12px',
-                    rotate: '180deg',
-                    fontSize: '14px',
-                },
+                display: 'inline-flex',
+                alignItems: 'flex-start',
             }}
         >
-            mam już w brzuszku: {count}
-        </Typography>
+            <ArrowLeftIcon
+                sx={{
+                    color: '#d3cece',
+                    position: 'absolute',
+                    left: '-15px',
+                    fontSize: 40,
+                }}
+            />
+
+            <Typography
+                sx={{
+                    border: '1px solid #d3cece',
+                    borderRadius: '12px',
+                    p: '8px',
+                    ml: '8px',
+                    height: 'fit-content',
+                }}
+            >
+                Mam już w brzuszku: {count}
+            </Typography>
+        </Box>
     )
 }
