@@ -8,6 +8,8 @@ import {
     playMore,
 } from './utils'
 import { useDialog } from './components'
+import capibara from './assets/capibara-img.png'
+import { Box } from '@mui/material'
 
 export const useApp = () => {
     const maxWidth = 25
@@ -132,13 +134,23 @@ export const useApp = () => {
         if (timeLeft === 0 && stage !== 0) {
             const nextLevel = playMore(count, stage)
             if (nextLevel) {
-                handleClickOpenDialog(`Brawo! Gramy dalej:)`)
+                handleClickOpenDialog(`Brawo! Gramy dalej!`)
                 setStage((s) => s + 1)
                 setTimeLeft(getTimeLeft(stage + 1, level))
                 setResetKey((k) => k + 1)
             } else {
                 setStage(0)
-                handleClickOpenDialog(`Kapibara zjadła ${count}:)`)
+                handleClickOpenDialog(
+                    <>
+                        <Box
+                            component="img"
+                            src={capibara}
+                            sx={{ width: '20px', height: 'auto', me: '4px' }}
+                            alt=""
+                        />
+                        zjadła {count}
+                    </>
+                )
                 return
             }
         }

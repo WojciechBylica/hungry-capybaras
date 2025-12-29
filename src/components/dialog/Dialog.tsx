@@ -17,7 +17,10 @@ export const AlertDialog = () => {
             aria-describedby="alert-dialog-description"
         >
             <DialogContent>
-                <DialogContentText id="alert-dialog-description">
+                <DialogContentText
+                    id="alert-dialog-description"
+                    sx={{ display: 'flex', justifyContent: 'center' }}
+                >
                     {dialogData.message}
                 </DialogContentText>
             </DialogContent>

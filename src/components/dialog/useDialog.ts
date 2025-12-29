@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { type ReactNode, useState } from 'react'
 import { DialogDataType } from '../../types'
 
 export const useDialog = () => {
@@ -7,7 +7,7 @@ export const useDialog = () => {
         message: '',
     })
 
-    const handleClickOpenDialog = (message: string) => {
+    const handleClickOpenDialog = (message: string | ReactNode) => {
         setDialogData({ open: true, message })
     }
 

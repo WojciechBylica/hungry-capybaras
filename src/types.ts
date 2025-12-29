@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react'
+
 export type FillType = 'capibara' | 'grass' | null
 
 export type FieldType = {
@@ -9,6 +11,6 @@ export type FieldType = {
 
 export type LevelType = 'easy' | 'medium' | 'hard'
 
-export type DialogDataType = { open: boolean; message: string }
+export type DialogDataType = { open: boolean; message: string | ReactNode }
 
 export type HandType = 'left' | 'right'
