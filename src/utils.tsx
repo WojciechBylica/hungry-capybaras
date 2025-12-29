@@ -1,3 +1,5 @@
+import { type Dispatch, type SetStateAction } from 'react'
+
 import type { FieldType, FillType, HandType, LevelType } from './types'
 import capibara from './assets/capibara-img.png'
 import grass from './assets/grass.png'
@@ -147,4 +149,72 @@ export const getInitialState = (
 export const getRandomIndex = (maxWidth: number) => {
     const max = maxWidth * maxWidth
     return Math.floor(Math.random() * max) + 1
+}
+
+export const getNewFields = (
+    prevFields: FieldType[],
+    nextX: number,
+    nextY: number,
+    previousCapibaraField: FieldType,
+    setCount: Dispatch<SetStateAction<number>>
+) => {
+    const capibaraNextField = prevFields.find(
+        ({ x, y }) => x === nextX && y === nextY
+    ) as FieldType
+    const capibaraNextFieldSettled = {
+        ...capibaraNextField,
+        fill: 'capibara',
+    } as FieldType
+
+    const restOfFields = prevFields.filter(
+        ({ id }) =>
+            id !== previousCapibaraField.id && id !== capibaraNextField.id
+    )
+
+    const newFields = [
+        previousCapibaraField,
+        capibaraNextFieldSettled,
+        ...restOfFields,
+    ].sort((a, b) => a.id - b.id)
+
+    if (
+        capibaraNextFieldSettled.id ===
+        prevFields.find(({ fill }) => fill === 'grass')?.id
+    ) {
+        setCount((c) => c + 1)
+
+        const availableIds = restOfFields.map(({ id }) => id)
+        const randomId =
+            availableIds[Math.floor(Math.random() * availableIds.length)]
+        const newFieldToGrass = restOfFields.find(({ id }) => id === randomId)
+        const newGrassedField = {
+            ...newFieldToGrass,
+            fill: 'grass',
+        } as FieldType
+        const restOfFieldsAfterGrassing = restOfFields.filter(
+            ({ id }) => id !== newGrassedField.id
+        ) as FieldType[]
+        const newFields = [
+            previousCapibaraField,
+            capibaraNextFieldSettled,
+            newGrassedField,
+            ...restOfFieldsAfterGrassing,
+        ].sort((a, b) => a.id - b.id)
+
+        return newFields
+    }
+
+    return newFields
+}
+
+export const getPreviousCapibaraField = (prevFields: FieldType[]) => {
+    const capibaraPos = prevFields.find(
+        ({ fill }) => fill === 'capibara'
+    ) as FieldType
+    const previousCapibaraField: FieldType = {
+        ...capibaraPos,
+        fill: null,
+    }
+
+    return previousCapibaraField
 }

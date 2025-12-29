@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
-import type { FieldType, HandType, LevelType } from './types'
+
+import type { HandType, LevelType } from './types'
 import {
     getDirectionKeys,
     getInitialState,
+    getNewFields,
+    getPreviousCapibaraField,
     getRandomIndex,
     getTimeLeft,
     playMore,
@@ -40,6 +43,33 @@ export const useApp = () => {
         setResetKey((k) => k + 1)
     }
 
+    const handleNextLevel = () => {
+        handleClickOpenDialog(`Brawo! Gramy dalej!`)
+        setStage((s) => s + 1)
+        setTimeLeft(getTimeLeft(stage + 1, level))
+        setResetKey((k) => k + 1)
+    }
+
+    const handleEndOfTheGame = () => {
+        setStage(0)
+        handleClickOpenDialog(
+            <>
+                <Box
+                    component="img"
+                    src={capibara}
+                    sx={{
+                        width: '20px',
+                        height: 'auto',
+                        marginRight: '4px',
+                    }}
+                    alt=""
+                />
+                zjadła {count}
+            </>
+        )
+        return
+    }
+
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             const directionKeys = getDirectionKeys(hand)
@@ -54,13 +84,11 @@ export const useApp = () => {
                 return
 
             setFields((prevFields) => {
-                const capibaraPos = prevFields.find(
-                    ({ fill }) => fill === 'capibara'
-                ) as FieldType
-                const previousCapibaraField = { ...capibaraPos, fill: null }
+                const previousCapibaraField =
+                    getPreviousCapibaraField(prevFields)
 
-                let nextX = capibaraPos.x
-                let nextY = capibaraPos.y
+                let nextX = previousCapibaraField.x
+                let nextY = previousCapibaraField.y
 
                 switch (event.key) {
                     case directionKeys[0]:
@@ -77,85 +105,21 @@ export const useApp = () => {
                         break
                 }
 
-                const capibaraNextField = prevFields.find(
-                    (f) => f.x === nextX && f.y === nextY
-                ) as FieldType
-                const capibaraNextFieldSettled = {
-                    ...capibaraNextField,
-                    fill: 'capibara',
-                } as FieldType
-
-                const restOfFields = prevFields.filter(
-                    ({ id }) =>
-                        id !== previousCapibaraField.id &&
-                        id !== capibaraNextField.id
-                )
-
-                const newFields = [
+                return getNewFields(
+                    prevFields,
+                    nextX,
+                    nextY,
                     previousCapibaraField,
-                    capibaraNextFieldSettled,
-                    ...restOfFields,
-                ].sort((a, b) => a.id - b.id)
-
-                if (
-                    capibaraNextFieldSettled.id ===
-                    prevFields.find(({ fill }) => fill === 'grass')?.id
-                ) {
-                    setCount((c) => c + 1)
-
-                    const availableIds = restOfFields.map(({ id }) => id)
-                    const randomId =
-                        availableIds[
-                            Math.floor(Math.random() * availableIds.length)
-                        ]
-                    const newFieldToGrass = restOfFields.find(
-                        ({ id }) => id === randomId
-                    )
-                    const newGrassedField = {
-                        ...newFieldToGrass,
-                        fill: 'grass',
-                    } as FieldType
-                    const restOfFieldsAfterGrassing = restOfFields.filter(
-                        ({ id }) => id !== newGrassedField.id
-                    ) as FieldType[]
-                    const newFields = [
-                        previousCapibaraField,
-                        capibaraNextFieldSettled,
-                        newGrassedField,
-                        ...restOfFieldsAfterGrassing,
-                    ].sort((a, b) => a.id - b.id)
-
-                    return newFields
-                }
-
-                return newFields
+                    setCount
+                )
             })
         }
         if (timeLeft === 0 && stage !== 0) {
             const nextLevel = playMore(count, stage)
             if (nextLevel) {
-                handleClickOpenDialog(`Brawo! Gramy dalej!`)
-                setStage((s) => s + 1)
-                setTimeLeft(getTimeLeft(stage + 1, level))
-                setResetKey((k) => k + 1)
+                handleNextLevel()
             } else {
-                setStage(0)
-                handleClickOpenDialog(
-                    <>
-                        <Box
-                            component="img"
-                            src={capibara}
-                            sx={{
-                                width: '20px',
-                                height: 'auto',
-                                marginRight: '4px',
-                            }}
-                            alt=""
-                        />
-                        zjadła {count}
-                    </>
-                )
-                return
+                handleEndOfTheGame()
             }
         }
 

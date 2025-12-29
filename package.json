@@ -14,7 +14,7 @@
     "deploy": "gh-pages -d dist",
     "lint": "eslint .",
     "preview": "vite preview",
-    "ts-lint": "tsc --watch"
+    "ts-lint": "tsc --noemit --incremental --watch"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
