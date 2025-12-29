@@ -19,7 +19,7 @@ export const AlertDialog = () => {
             <DialogContent>
                 <DialogContentText
                     id="alert-dialog-description"
-                    sx={{ display: 'flex', justifyContent: 'center' }}
+                    sx={{ display: 'flex', alignItems: 'center' }}
                 >
                     {dialogData.message}
                 </DialogContentText>

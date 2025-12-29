@@ -145,7 +145,11 @@ export const useApp = () => {
                         <Box
                             component="img"
                             src={capibara}
-                            sx={{ width: '20px', height: 'auto', me: '4px' }}
+                            sx={{
+                                width: '20px',
+                                height: 'auto',
+                                marginRight: '4px',
+                            }}
                             alt=""
                         />
                         zjadła {count}
