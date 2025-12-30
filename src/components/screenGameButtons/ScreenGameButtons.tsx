@@ -1,5 +1,7 @@
+import { type PointerEvent, type MouseEvent } from 'react'
+
 import { handleScreenButton } from '../../utils'
-import { Button, Box } from '@mui/material'
+import { Button, Box, type SxProps, type ButtonProps } from '@mui/material'
 import {
     ArrowUpward,
     ArrowDownward,
@@ -8,66 +10,61 @@ import {
 } from '@mui/icons-material'
 import { useGameContext } from '../../context'
 import { useDirectionHold } from './useDirrectionHold'
-import { useIsTouchDevice } from './useTouchDevice'
 
 export const ScreenGameButtons = () => {
-    const { setFields, setCount, hand } = useGameContext()
+    const { setFields, setCount, hand, timeLeft, isTouchDevice } =
+        useGameContext()
 
-    const { start, stop } = useDirectionHold((direction) =>
-        handleScreenButton(setFields, setCount, direction)
-    )
+    const { start, stop } = useDirectionHold((direction) => {
+        if (timeLeft !== 0) {
+            handleScreenButton(setFields, setCount, direction)
+        }
+    })
+
+    const commonBtnProps: ButtonProps = {
+        disableRipple: true,
+        disableTouchRipple: true,
+        disableFocusRipple: true,
+        onPointerUp: (e: PointerEvent<HTMLButtonElement>) => stop(e),
+        onPointerCancel: (e: PointerEvent<HTMLButtonElement>) => stop(e),
+        onPointerLeave: (e: PointerEvent<HTMLButtonElement>) => stop(e),
+        onClick: (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) =>
+            e.preventDefault(),
+        sx: { touchAction: 'none', userSelect: 'none' } as SxProps,
+    }
 
     return (
         <Box
             sx={{
-                display: useIsTouchDevice() ? 'grid' : 'none',
+                display: isTouchDevice ? 'grid' : 'none',
                 gridTemplateColumns: 'repeat(3, 48px)',
                 gap: 1,
                 height: 80,
-                position: 'absolute',
-                bottom: 0,
-                right: hand === 'right' ? 0 : 'auto',
+                position: 'fixed',
+                bottom: 16,
+                right: hand === 'right' ? 16 : 'auto',
                 left: hand === 'left' ? 0 : 'auto',
+                zIndex: '1000',
+                userSelect: 'none',
             }}
         >
             <Box />
-            <Button
-                onMouseDown={() => start('up')}
-                onMouseUp={stop}
-                onMouseLeave={stop}
-                onTouchStart={() => start('up')}
-                onTouchEnd={stop}
-            >
+            <Button {...commonBtnProps} onPointerDown={(e) => start('up', e)}>
                 <ArrowUpward />
             </Button>
 
             <Box />
-            <Button
-                onMouseDown={() => start('left')}
-                onMouseUp={stop}
-                onMouseLeave={stop}
-                onTouchStart={() => start('left')}
-                onTouchEnd={stop}
-            >
+            <Button {...commonBtnProps} onPointerDown={(e) => start('left', e)}>
                 <ArrowBack />
             </Button>
 
-            <Button
-                onMouseDown={() => start('down')}
-                onMouseUp={stop}
-                onMouseLeave={stop}
-                onTouchStart={() => start('down')}
-                onTouchEnd={stop}
-            >
+            <Button {...commonBtnProps} onPointerDown={(e) => start('down', e)}>
                 <ArrowDownward />
             </Button>
 
             <Button
-                onMouseDown={() => start('right')}
-                onMouseUp={stop}
-                onMouseLeave={stop}
-                onTouchStart={() => start('right')}
-                onTouchEnd={stop}
+                {...commonBtnProps}
+                onPointerDown={(e) => start('right', e)}
             >
                 <ArrowForward />
             </Button>

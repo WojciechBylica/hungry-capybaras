@@ -9,6 +9,7 @@ import {
     LevelButtons,
     ScreenGameButtons,
     Timer,
+    useIsTouchDevice,
 } from './components'
 import { GameContext } from './context'
 
@@ -23,8 +24,12 @@ function App() {
         ...rest
     } = useApp()
 
+    const isTouchDevice = useIsTouchDevice()
+
     return (
-        <GameContext.Provider value={{ handleReset, count, ...rest }}>
+        <GameContext.Provider
+            value={{ handleReset, count, isTouchDevice, ...rest }}
+        >
             <AlertDialog />
             <Box
                 component="header"
@@ -33,6 +38,7 @@ function App() {
                     display: 'flex',
                     position: 'relative',
                     justifyContent: 'space-between',
+                    mb: 1,
                 }}
             >
                 <Box

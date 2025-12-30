@@ -5,7 +5,7 @@ export const WASDIcon = () => (
         viewBox="0 0 64 64"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <g fill="#fff" stroke="currentColor" stroke-width="2">
+        <g fill="#fff" stroke="currentColor" strokeWidth="2">
             <rect
                 x="22"
                 y="2"
@@ -42,11 +42,11 @@ export const WASDIcon = () => (
 
         <g
             fill="currentColor"
-            font-family="Roboto, Helvetica, sans-serif"
-            font-size="12"
-            font-weight="700"
-            text-anchor="middle"
-            dominant-baseline="middle"
+            fontFamily="Roboto, Helvetica, sans-serif"
+            fontSize="12"
+            fontWeight="700"
+            textAnchor="middle"
+            dominantBaseline="middle"
         >
             <text x="32" y="12" stroke="currentColor">
                 W

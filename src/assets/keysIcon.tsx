@@ -5,7 +5,7 @@ export const KeysIcon = () => (
         viewBox="0 0 64 64"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <g fill="#fff" stroke="currentColor" stroke-width="2" rx="6" ry="6">
+        <g fill="#fff" stroke="currentColor" strokeWidth="2" rx="6" ry="6">
             <rect
                 x="22"
                 y="2"

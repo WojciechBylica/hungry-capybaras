@@ -3,23 +3,24 @@ import { useEffect, useState } from 'react'
 import { boxSize, maxWidth } from './utils'
 
 export const useCustomBoxSize = () => {
+    const getVW = () =>
+        Math.max(
+            document.documentElement.clientWidth || 0,
+            window.innerWidth || 0
+        )
+
     const getHeight = () => {
         return !(window.innerHeight - 24 > maxWidth * boxSize)
             ? (window.innerHeight - 24) / maxWidth
             : boxSize
     }
 
-    const getWidth = () =>
-        !(window.innerWidth - 24 > maxWidth * boxSize)
-            ? (window.innerWidth - 24) / maxWidth
-            : boxSize
+    const getWidth = () => {
+        const vw = getVW()
+        return !(vw - 24 > maxWidth * boxSize) ? (vw - 24) / maxWidth : boxSize
+    }
 
     const updateBoxSize = () => {
-        console.log(
-            'header-height',
-            window.document?.querySelector('.js-header')?.clientHeight || 0
-        )
-        console.log(document.body.offsetHeight)
         setCustomBoxWidth(getWidth())
         setCustomBoxHeight(getHeight())
     }
@@ -27,7 +28,6 @@ export const useCustomBoxSize = () => {
     const [customBoxHeight, setCustomBoxHeight] = useState(getHeight())
 
     useEffect(() => {
-        updateBoxSize()
         window.addEventListener('resize', updateBoxSize)
         return () => removeEventListener('resize', updateBoxSize)
     }, [])

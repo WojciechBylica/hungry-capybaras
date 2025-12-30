@@ -4,6 +4,7 @@ import {
     createContext,
     useContext,
 } from 'react'
+
 import type { DialogDataType, FieldType, HandType, LevelType } from './types'
 
 interface GameContextType {
@@ -22,6 +23,7 @@ interface GameContextType {
     handleCloseDialog: () => void
     hand: HandType
     setHand: Dispatch<SetStateAction<HandType>>
+    isTouchDevice: boolean
 }
 
 export const GameContext = createContext<GameContextType | null>(null)
