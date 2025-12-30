@@ -8,14 +8,15 @@ import {
     getPreviousCapibaraField,
     getRandomIndex,
     getTimeLeft,
+    maxWidth,
     playMore,
 } from './utils'
 import { useDialog } from './components'
 import capibara from './assets/capibara-img.png'
 import { Box } from '@mui/material'
+import { useCustomBoxSize } from './useCustomBoxSize'
 
 export const useApp = () => {
-    const maxWidth = 25
     const initialCapibaraIdPosition = getRandomIndex(maxWidth)
     const initialGrassPosition = getRandomIndex(maxWidth)
 
@@ -34,6 +35,7 @@ export const useApp = () => {
     const [resetKey, setResetKey] = useState(0)
     const { handleClickOpenDialog, handleCloseDialog, dialogData } = useDialog()
     const [hand, setHand] = useState<HandType>('right')
+    const { customBoxWidth, customBoxHeight } = useCustomBoxSize()
 
     const handleReset = () => {
         setFields(initialValues)
@@ -58,7 +60,7 @@ export const useApp = () => {
                     component="img"
                     src={capibara}
                     sx={{
-                        width: '20px',
+                        width: `${customBoxWidth}px`,
                         height: 'auto',
                         marginRight: '4px',
                     }}
@@ -129,6 +131,7 @@ export const useApp = () => {
 
     return {
         fields,
+        setFields,
         maxWidth,
         count,
         setCount,
@@ -144,5 +147,7 @@ export const useApp = () => {
         dialogData,
         hand,
         setHand,
+        customBoxHeight,
+        customBoxWidth,
     }
 }

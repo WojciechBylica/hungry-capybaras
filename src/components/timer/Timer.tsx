@@ -31,5 +31,9 @@ export const Timer = () => {
         }
     }, [resetKey])
 
-    return <Typography mb={2}>Pozostało: {timeLeft}s</Typography>
+    return (
+        <Typography sx={{ mb: { xs: 1, md: 2 } }}>
+            Pozostało: {timeLeft}s
+        </Typography>
+    )
 }

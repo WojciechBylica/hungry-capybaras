@@ -14,3 +14,5 @@ export type LevelType = 'easy' | 'medium' | 'hard'
 export type DialogDataType = { open: boolean; message: string | ReactNode }
 
 export type HandType = 'left' | 'right'
+
+export type Direction = 'up' | 'down' | 'left' | 'right'

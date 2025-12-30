@@ -1,14 +1,17 @@
-import { Button, ButtonGroup } from '@mui/material'
+import { Button, ButtonGroup, useMediaQuery, useTheme } from '@mui/material'
 import { useGameContext } from '../../context'
 import { getLevelLabel } from '../../utils'
 
 export const LevelButtons = () => {
     const { level, setLevel, handleReset } = useGameContext()
+    const theme = useTheme()
+    const matches = useMediaQuery(theme.breakpoints.up('sm'))
     return (
         <ButtonGroup
             variant="text"
             size="small"
             aria-label="Wybór poziomu trudności"
+            orientation={matches ? 'horizontal' : 'vertical'}
         >
             <Button
                 disabled={level === 'easy'}

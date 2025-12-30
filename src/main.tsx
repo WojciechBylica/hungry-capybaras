@@ -6,7 +6,7 @@ import { CssBaseline, Paper } from '@mui/material'
 createRoot(document.getElementById('root')!).render(
     <AppThemeProvider>
         <CssBaseline />
-        <Paper component="main" elevation={3}>
+        <Paper component="main" elevation={0} sx={{ p: { xs: 1, md: 2 } }}>
             <App />
         </Paper>
     </AppThemeProvider>

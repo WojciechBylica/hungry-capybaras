@@ -17,12 +17,13 @@ const theme = createTheme({
             styleOverrides: {
                 main: {
                     minHeight: '100vh',
-                    padding: '16px',
+                    padding: '12px',
                     backgroundColor: '#fff',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
-                    width: '900px',
+                    maxWidth: '900px',
+                    width: '100%',
                     margin: '0 auto',
                 },
             },

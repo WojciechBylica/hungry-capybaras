@@ -4,10 +4,12 @@ import {
     createContext,
     useContext,
 } from 'react'
-import type { DialogDataType, HandType, LevelType } from './types'
+import type { DialogDataType, FieldType, HandType, LevelType } from './types'
 
 interface GameContextType {
+    setFields: Dispatch<SetStateAction<FieldType[]>>
     count: number
+    setCount: Dispatch<SetStateAction<number>>
     timeLeft: number
     setTimeLeft: Dispatch<SetStateAction<number>>
     handleReset: () => void

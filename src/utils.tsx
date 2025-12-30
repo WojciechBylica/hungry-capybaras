@@ -5,6 +5,7 @@ import capibara from './assets/capibara-img.png'
 import grass from './assets/grass.png'
 import { Box } from '@mui/material'
 
+export const maxWidth = 25
 export const boxSize = 22
 
 export const getDirectionKeys = (hand: HandType) =>
@@ -86,16 +87,21 @@ export const playMore = (count: number, stage: number) => {
     return false
 }
 
-export const getSize = (count: number) =>
+export const getSize = (count: number, boxSize: number) =>
     count > 0 ? `${boxSize * (1 + count / 10)}px` : `${boxSize}px`
 
-export const getFill = (count: number, fill: FillType) => {
+export const getFill = (
+    count: number,
+    fill: FillType,
+    boxWidth: number,
+    boxHeight: number
+) => {
     switch (fill) {
         case 'capibara':
             return (
                 <img
                     src={capibara}
-                    height={getSize(count)}
+                    height={getSize(count, boxHeight)}
                     width="auto"
                     alt=""
                 />
@@ -105,8 +111,8 @@ export const getFill = (count: number, fill: FillType) => {
                 <Box
                     component="img"
                     src={grass}
-                    height={`${boxSize}px`}
-                    width={`${boxSize}px`}
+                    height={`${boxHeight}px`}
+                    width={`${boxWidth}px`}
                     alt=""
                 />
             )
@@ -217,4 +223,40 @@ export const getPreviousCapibaraField = (prevFields: FieldType[]) => {
     }
 
     return previousCapibaraField
+}
+
+export const handleScreenButton = (
+    setFields: Dispatch<SetStateAction<FieldType[]>>,
+    setCount: Dispatch<SetStateAction<number>>,
+    direction: 'up' | 'down' | 'left' | 'right'
+) => {
+    setFields((prevFields) => {
+        const previousCapibaraField = getPreviousCapibaraField(prevFields)
+
+        let nextX = previousCapibaraField.x
+        let nextY = previousCapibaraField.y
+
+        switch (direction) {
+            case 'up':
+                nextY = nextY > 1 ? nextY - 1 : maxWidth
+                break
+            case 'down':
+                nextY = nextY < maxWidth ? nextY + 1 : 1
+                break
+            case 'left':
+                nextX = nextX > 1 ? nextX - 1 : maxWidth
+                break
+            case 'right':
+                nextX = nextX < maxWidth ? nextX + 1 : 1
+                break
+        }
+
+        return getNewFields(
+            prevFields,
+            nextX,
+            nextY,
+            previousCapibaraField,
+            setCount
+        )
+    })
 }
