@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react'
 
-export type FillType = 'capibara' | 'grass' | null
+export type FillType = 'capybara' | 'grass' | null
 
 export type FieldType = {
     id: number

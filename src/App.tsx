@@ -1,5 +1,5 @@
 import { Box, Button, Paper, Typography } from '@mui/material'
-import capibara from './assets/capibara-img.png'
+import capybara from './assets/capybara-img.png'
 import { useApp } from './useApp'
 import { getFill } from './utils'
 import {
@@ -64,7 +64,7 @@ function App() {
                     <Box sx={{ display: 'flex', height: 'fit-content' }}>
                         <Box
                             component="img"
-                            src={capibara}
+                            src={capybara}
                             sx={{ width: { xs: 60, sm: 80 }, height: 'auto' }}
                             alt=""
                         />
@@ -90,7 +90,6 @@ function App() {
                     <Typography
                         variant="h2"
                         sx={{
-                            fontSize: '14px',
                             display: { xs: 'none', md: 'block' },
                         }}
                     >
@@ -100,7 +99,6 @@ function App() {
                     <Typography
                         variant="h2"
                         sx={{
-                            fontSize: '14px',
                             mt: '16px',
                             display: { xs: 'none', md: 'block' },
                         }}
@@ -133,6 +131,7 @@ function App() {
                     <Box
                         sx={{
                             display: 'grid',
+                            userSelect: 'none',
                             gridTemplateColumns: `repeat(${maxWidth}, minmax(${customBoxWidth}px, ${customBoxWidth}px))`,
                         }}
                     >
@@ -145,6 +144,7 @@ function App() {
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'flex-end',
+                                    userSelect: 'none',
                                 }}
                             >
                                 {getFill(

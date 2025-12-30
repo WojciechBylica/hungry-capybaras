@@ -1,4 +1,5 @@
 import { type ReactNode, useState } from 'react'
+
 import { DialogDataType } from '../../types'
 
 export const useDialog = () => {

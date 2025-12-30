@@ -1,7 +1,7 @@
 import { type Dispatch, type SetStateAction } from 'react'
 
 import type { FieldType, FillType, HandType, LevelType } from './types'
-import capibara from './assets/capibara-img.png'
+import capybara from './assets/capybara-img.png'
 import grass from './assets/grass.png'
 import { Box } from '@mui/material'
 
@@ -97,10 +97,10 @@ export const getFill = (
     boxHeight: number
 ) => {
     switch (fill) {
-        case 'capibara':
+        case 'capybara':
             return (
                 <img
-                    src={capibara}
+                    src={capybara}
                     height={getSize(count, boxHeight)}
                     width="auto"
                     alt=""
@@ -123,7 +123,7 @@ export const getFill = (
 
 export const getInitialState = (
     maxWidth: number,
-    capibaraIndex: number,
+    capybaraIndex: number,
     grassIndex: number
 ) => {
     const maxIndex = maxWidth * maxWidth
@@ -137,8 +137,8 @@ export const getInitialState = (
             x,
             y,
             fill:
-                capibaraIndex === step
-                    ? 'capibara'
+                capybaraIndex === step
+                    ? 'capybara'
                     : grassIndex === step
                     ? 'grass'
                     : null,
@@ -161,30 +161,30 @@ export const getNewFields = (
     prevFields: FieldType[],
     nextX: number,
     nextY: number,
-    previousCapibaraField: FieldType,
+    previousCapybaraField: FieldType,
     setCount: Dispatch<SetStateAction<number>>
 ) => {
-    const capibaraNextField = prevFields.find(
+    const capybaraNextField = prevFields.find(
         ({ x, y }) => x === nextX && y === nextY
     ) as FieldType
-    const capibaraNextFieldSettled = {
-        ...capibaraNextField,
-        fill: 'capibara',
+    const capybaraNextFieldSettled = {
+        ...capybaraNextField,
+        fill: 'capybara',
     } as FieldType
 
     const restOfFields = prevFields.filter(
         ({ id }) =>
-            id !== previousCapibaraField.id && id !== capibaraNextField.id
+            id !== previousCapybaraField.id && id !== capybaraNextField.id
     )
 
     const newFields = [
-        previousCapibaraField,
-        capibaraNextFieldSettled,
+        previousCapybaraField,
+        capybaraNextFieldSettled,
         ...restOfFields,
     ].sort((a, b) => a.id - b.id)
 
     if (
-        capibaraNextFieldSettled.id ===
+        capybaraNextFieldSettled.id ===
         prevFields.find(({ fill }) => fill === 'grass')?.id
     ) {
         setCount((c) => c + 1)
@@ -201,8 +201,8 @@ export const getNewFields = (
             ({ id }) => id !== newGrassedField.id
         ) as FieldType[]
         const newFields = [
-            previousCapibaraField,
-            capibaraNextFieldSettled,
+            previousCapybaraField,
+            capybaraNextFieldSettled,
             newGrassedField,
             ...restOfFieldsAfterGrassing,
         ].sort((a, b) => a.id - b.id)
@@ -213,16 +213,16 @@ export const getNewFields = (
     return newFields
 }
 
-export const getPreviousCapibaraField = (prevFields: FieldType[]) => {
-    const capibaraPos = prevFields.find(
-        ({ fill }) => fill === 'capibara'
+export const getPreviousCapybaraField = (prevFields: FieldType[]) => {
+    const capybaraPos = prevFields.find(
+        ({ fill }) => fill === 'capybara'
     ) as FieldType
-    const previousCapibaraField: FieldType = {
-        ...capibaraPos,
+    const previousCapybaraField: FieldType = {
+        ...capybaraPos,
         fill: null,
     }
 
-    return previousCapibaraField
+    return previousCapybaraField
 }
 
 export const handleScreenButton = (
@@ -231,10 +231,10 @@ export const handleScreenButton = (
     direction: 'up' | 'down' | 'left' | 'right'
 ) => {
     setFields((prevFields) => {
-        const previousCapibaraField = getPreviousCapibaraField(prevFields)
+        const previousCapybaraField = getPreviousCapybaraField(prevFields)
 
-        let nextX = previousCapibaraField.x
-        let nextY = previousCapibaraField.y
+        let nextX = previousCapybaraField.x
+        let nextY = previousCapybaraField.y
 
         switch (direction) {
             case 'up':
@@ -255,7 +255,7 @@ export const handleScreenButton = (
             prevFields,
             nextX,
             nextY,
-            previousCapibaraField,
+            previousCapybaraField,
             setCount
         )
     })

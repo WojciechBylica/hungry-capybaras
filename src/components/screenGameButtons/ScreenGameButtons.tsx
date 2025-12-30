@@ -30,7 +30,7 @@ export const ScreenGameButtons = () => {
         onPointerLeave: (e: PointerEvent<HTMLButtonElement>) => stop(e),
         onClick: (e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) =>
             e.preventDefault(),
-        sx: { touchAction: 'none', userSelect: 'none' } as SxProps,
+        sx: { touchAction: 'manipulation', userSelect: 'none' } as SxProps,
     }
 
     return (

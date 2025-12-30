@@ -11,6 +11,9 @@ const theme = createTheme({
             marginTop: 0,
             marginBottom: 2,
         },
+        h2: {
+            fontSize: '14px',
+        },
     },
     components: {
         MuiCssBaseline: {

@@ -5,24 +5,24 @@ import {
     getDirectionKeys,
     getInitialState,
     getNewFields,
-    getPreviousCapibaraField,
+    getPreviousCapybaraField,
     getRandomIndex,
     getTimeLeft,
     maxWidth,
     playMore,
 } from './utils'
 import { useDialog } from './components'
-import capibara from './assets/capibara-img.png'
+import capybara from './assets/capybara-img.png'
 import { Box } from '@mui/material'
 import { useCustomBoxSize } from './useCustomBoxSize'
 
 export const useApp = () => {
-    const initialCapibaraIdPosition = getRandomIndex(maxWidth)
+    const initialCapybaraIdPosition = getRandomIndex(maxWidth)
     const initialGrassPosition = getRandomIndex(maxWidth)
 
     const initialValues = getInitialState(
         maxWidth,
-        initialCapibaraIdPosition,
+        initialCapybaraIdPosition,
         initialGrassPosition
     )
 
@@ -58,7 +58,7 @@ export const useApp = () => {
             <>
                 <Box
                     component="img"
-                    src={capibara}
+                    src={capybara}
                     sx={{
                         width: `${customBoxWidth}px`,
                         height: 'auto',
@@ -86,11 +86,11 @@ export const useApp = () => {
                 return
 
             setFields((prevFields) => {
-                const previousCapibaraField =
-                    getPreviousCapibaraField(prevFields)
+                const previousCapybaraField =
+                    getPreviousCapybaraField(prevFields)
 
-                let nextX = previousCapibaraField.x
-                let nextY = previousCapibaraField.y
+                let nextX = previousCapybaraField.x
+                let nextY = previousCapybaraField.y
 
                 switch (event.key) {
                     case directionKeys[0]:
@@ -111,7 +111,7 @@ export const useApp = () => {
                     prevFields,
                     nextX,
                     nextY,
-                    previousCapibaraField,
+                    previousCapybaraField,
                     setCount
                 )
             })
