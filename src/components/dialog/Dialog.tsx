@@ -9,7 +9,8 @@ import {
 import { useGameContext } from '../../context'
 
 export const AlertDialog = () => {
-    const { dialogData, handleCloseDialog, handleReset } = useGameContext()
+    const { dialogData, handleCloseDialog, handleReset, timeLeft } =
+        useGameContext()
     return (
         <Dialog
             open={dialogData.open}
@@ -25,14 +26,16 @@ export const AlertDialog = () => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button
-                    onClick={() => {
-                        handleCloseDialog()
-                        handleReset()
-                    }}
-                >
-                    Zagrajmy jeszcze raz
-                </Button>
+                {timeLeft === 0 && (
+                    <Button
+                        onClick={() => {
+                            handleCloseDialog()
+                            handleReset()
+                        }}
+                    >
+                        Zagrajmy jeszcze raz
+                    </Button>
+                )}
                 <Button onClick={handleCloseDialog} autoFocus>
                     Ok
                 </Button>

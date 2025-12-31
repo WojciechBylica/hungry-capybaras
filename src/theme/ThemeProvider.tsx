@@ -28,6 +28,7 @@ const theme = createTheme({
                     maxWidth: '900px',
                     width: '100%',
                     margin: '0 auto',
+                    userSelect: 'none',
                 },
             },
         },

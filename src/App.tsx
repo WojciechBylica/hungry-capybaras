@@ -39,6 +39,7 @@ function App() {
                     position: 'relative',
                     justifyContent: 'space-between',
                     mb: 1,
+                    userSelect: 'none',
                 }}
             >
                 <Box
@@ -114,6 +115,7 @@ function App() {
                     flexGrow: '1',
                     display: 'flex',
                     justifyContent: { xs: 'center', sm: 'flex-start' },
+                    userSelect: 'none',
                 }}
             >
                 <Paper
@@ -121,6 +123,7 @@ function App() {
                     component="section"
                     sx={{
                         position: 'relative',
+                        userSelect: 'none',
                         width: 'fit-content',
                         height: 'fit-content',
                         backgroundColor: '#020024',
