@@ -13,6 +13,7 @@ import {
 } from './utils'
 import { useDialog } from './components'
 import capybara from './assets/capybara-img.png'
+import grass from './assets/new-grass-transparent.png'
 import { Box } from '@mui/material'
 import { useCustomBoxSize } from './useCustomBoxSize'
 
@@ -60,13 +61,23 @@ export const useApp = () => {
                     component="img"
                     src={capybara}
                     sx={{
-                        width: `${customBoxWidth}px`,
+                        width: `18px`,
                         height: 'auto',
                         marginRight: '4px',
                     }}
                     alt=""
                 />
                 zjadła {count}
+                <Box
+                    component="img"
+                    src={grass}
+                    sx={{
+                        width: `auto`,
+                        height: '18px',
+                        marginLeft: '4px',
+                    }}
+                    alt=""
+                />
             </>
         )
         return
