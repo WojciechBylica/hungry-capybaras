@@ -4,14 +4,13 @@ import { KeysIcon, WASDIcon } from '../../assets'
 import PanToolIcon from '@mui/icons-material/PanTool'
 
 export const HandButtons = () => {
-    const { hand, setHand, handleReset, isTouchDevice } = useGameContext()
+    const { hand, setHand, isTouchDevice } = useGameContext()
     return (
         <ButtonGroup variant="text" size="small" aria-label="Wybór ręki">
             <Button
                 disabled={hand === 'left'}
                 onClick={() => {
                     setHand('left')
-                    handleReset()
                 }}
                 aria-label="Lewa"
             >
@@ -25,7 +24,6 @@ export const HandButtons = () => {
                 disabled={hand === 'right'}
                 onClick={() => {
                     setHand('right')
-                    handleReset()
                 }}
                 aria-label="Prawa"
             >

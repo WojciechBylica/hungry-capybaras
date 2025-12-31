@@ -54,7 +54,7 @@ function App() {
                         >
                             Kapibary-głodomory
                         </Typography>
-                        <Typography>
+                        <Typography sx={{ fontSize: { xs: 14, sm: 16 } }}>
                             Nakarm głodną kapibarę i&nbsp;pomóż jej urosnąć
                         </Typography>
                         <Button onClick={handleReset}>
